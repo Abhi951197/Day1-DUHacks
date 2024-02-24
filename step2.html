@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Task Management Dashboard UI</title>
+    
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        #in{
+          color:green;
+        }
+       a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+        #new-message{
+            width:600px;
+            height:40px;
+            color:rgb(0, 0, 0);
+            display: block;
+            border: 2px solid black;
+            background-color: transparent;  
+            border-radius: 10px;
+        
+        }
+       :placeholder-shown{
+            forced-color-adjust:var(--main-color);
+            color: rgb(15, 15, 15);
+            font-size: larger;
+        }
+        .message input[type="checkbox"] {
+          width: 20px; /* Adjust the checkbox size as needed */
+          height: 20px;
+          margin-right: 10px; /* Add some spacing between checkbox and message content */
+      }
+  
+      .message input[type="checkbox"]:checked + span {
+          color: rgb(161, 98, 47); /* Change the color of the tick when checkbox is checked */
+      }
+      .dash-img {
+        width:30px;
+        height: 30px;
+        position: absolute;
+        top: 0%;
+        left: 90%;
+        cursor: pointer; /* Add this to indicate the image is clickable */
+      }
+     
+      
+      .page-content{
+        position: relative;
+        top:0%;
+        left:0%;
+        overflow:scroll ;
+        
+      }
+      
+        .left-bar {
+        
+          position: relative;
+          width:300px;
+          transition: transform 0.5s ease-in-out;
+          transform: translateX(0);
+          min-width: fit-content;
+      
+        }
+        .left-bar.closed {
+          transform: translateX(-90%);
+        }
+        .left-bar h1{
+          font-size: 20px;
+        }
+        #message-datetime{
+          border-radius: 5px;
+          position: relative;
+          display: block;
+          margin-top: 10px  ;
+           cursor: pointer;
+
+        }
+        
+        
+      
+        
+    
+        #message-box {
+            
+                font-size: 20px;
+                color: var(--main-color);
+                margin-top: 20px;
+               
+               
+                
+              }
+        
+        .message {
+          margin-bottom: 10px;
+          font-size:30px;
+        }
+    
+        button {
+          margin-top: 10px;
+          padding: 8px 12px;
+          cursor: pointer;
+          background-color:rgb(246, 124, 10);
+          border-radius: 10px;
+          
+        }
+      </style>
+  </head>
+  <body>
+    <div class="task-manager"><div class="left-bar">
+        <div class="upper-part">
+          <div class="actions">
+            <div class="circle"></div>
+            <div class="circle-2"></div>
+          </div>
+        </div>
+      
+        <!-- left content starts -->
+       
+        <div class="left-content">
+          
+          <img  id="dash-img" class="dash-img" src="dashboard.jpg" alt="dashboard"  />
+          <h1 >DASHBOARD </h1>
+          <ul class="action-list">
+            <li class="item">
+              <img class="feather feather-inbox" src="inbox.svg" alt="" />
+              <span id="in"><a href="http://127.0.0.1:5500/step2.html">Inbox</a></span>
+            </li>
+            <li class="item">
+              <img class="feather feather-star" src="star.svg" alt="" />
+              <span> Today</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-calendar" src="calender.svg" alt="" />
+              <span>Upcoming</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-hash" src="hash.svg" alt="" />
+              <span>Important</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-users" src="users.svg" alt="" />
+              <span>Meetings</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-trash" src="trash.svg" alt="" />
+              <span>Trash</span>
+            </li>
+          </ul>
+        
+      
+          <ul class="category-list">
+            <li class="item">
+              <img class="feather feather-users" src="users.svg" alt="" />
+              <span>Family</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-sun" src="sun.svg" alt="" />
+              <span>Vacation</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-trending-up" src="trending.svg" alt="" />
+              <span>Festival</span>
+            </li>
+            <li class="item">
+              <img class="feather feather-zap" src="zap.svg" alt="" />
+              <span>Concerts</span>
+            </li>
+          </ul>
+        </div>
+      
+      </div>
+      <!-- page content starts -->
+<div class="page-content">
+    
+   
+    <!--  -->
+    <!-- contemt categories ends -->
+    <!-- tasks wrapper starts -->
+    <!-- Add this section to your HTML structure -->
+    <div id="message-box">
+      <h2>Message Box</h2>
+      <div id="messages-container"></div>
+      <textarea id="new-message" placeholder="Type your message"></textarea>
+      <input type="datetime-local" id="message-datetime" placeholder="Select date and time">
+      <button type="button" class="btn btn-danger" onclick="addMessage()">Add Message</button>
+      <button type="button" class="btn btn-danger" onclick="editMessage()">Edit Message</button>
+      <button type="button" class="btn btn-danger" onclick="deleteMessage()">Delete Message</button>
+      <button type="button" class="btn btn-danger" onclick="updateMessage()">Update Message</button>
+    </div>
+
+<script>
+    const messagesContainer = document.getElementById('messages-container');
+    const newMessageInput = document.getElementById('new-message');
+    let selectedMessageIndex = -1;
+    const messages = [];
+
+
+ 
+   
+      
+        function editMessage() {
+          if (selectedMessageIndex !== -1) {
+            newMessageInput.value = messages[selectedMessageIndex];
+          }
+        }
+      
+        function deleteMessage() {
+          if (selectedMessageIndex !== -1) {
+            messages.splice(selectedMessageIndex, 1);
+            selectedMessageIndex = -1;
+            displayMessages();
+            newMessageInput.value = '';
+          }
+        }
+      
+        function updateMessage() {
+          if (selectedMessageIndex !== -1) {
+            const updatedMessage = newMessageInput.value.trim();
+            if (updatedMessage !== '') {
+              messages[selectedMessageIndex] = updatedMessage;
+              displayMessages();
+              newMessageInput.value = '';
+              selectedMessageIndex = -1;
+            }
+          }
+        }
+      
+        function selectMessage(index) {
+          selectedMessageIndex = index;
+          newMessageInput.value = messages[index];
+        }
+      
+        // Initial display
+        displayMessages();
+       
+     
+          const dashImg = document.getElementById('dash-img');
+          const leftBar = document.querySelector('.left-bar');
+        
+          dashImg.addEventListener('click', () => {
+            leftBar.classList.toggle('closed');
+          });
+          function addMessage() {
+            const newMessage = newMessageInput.value.trim();
+            const messageDateTime = document.getElementById('message-datetime').value;
+        
+            if (newMessage !== '' && messageDateTime !== '') {
+              const messageObj = {
+                message: newMessage,
+                dateTime: messageDateTime,
+              };
+        
+              messages.push(messageObj);
+              newMessageInput.value = '';
+              displayMessages();
+            }
+          }
+        
+          function displayMessages() {
+            messagesContainer.innerHTML = '';
+            const currentDate = new Date();
+        
+            messages.forEach((messageObj, index) => {
+              const messageDate = new Date(messageObj.dateTime);
+        
+              const messageDiv = document.createElement('div');
+              messageDiv.className = 'message';
+        
+              const checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.addEventListener('change', () => handleCheckboxChange(index));
+              messageDiv.appendChild(checkbox);
+        
+              const orderNumber = document.createElement('span');
+              orderNumber.textContent = (index + 1) + '. ';
+              messageDiv.appendChild(orderNumber);
+        
+              const messageContent = document.createElement('span');
+              messageContent.textContent = messageObj.message;
+              messageContent.addEventListener('click', () => selectMessage(index));
+              messageDiv.appendChild(messageContent);
+        
+              const tag = document.createElement('span');
+              tag.textContent = messageDate > currentDate ? 'Upcoming' : 'Today';
+              tag.className = 'tag ' + (messageDate > currentDate ? 'waiting' : 'approved');
+              messageDiv.appendChild(tag);
+        
+              messagesContainer.appendChild(messageDiv);
+            });
+          }
+       
+        
+        
+        
+      </script>
+    
+      
+      
+  
+    <!-- tasks wrapper ends -->
+  </div>
+  <!--  -->
+  <!-- page content ends -->
+  <!-- right bar starts -->
+<div class="right-bar">
+    <div class="top-part">
+      <img class="feather feather-users" src="users.svg" alt="" />
+      <div class="count">6</div>
+    </div>
+    <div class="header">Schedule</div>
+    <div class="right-content">
+      <div class="task-box yellow">
+        <div class="description-task">
+          <div class="time">08:00 - 09:00 AM</div>
+          <div class="task-name">Product Review</div>
+        </div>
+        <div class="more-button"></div>
+        <div class="members">
+          <img src="img1.jpg" alt="member" />
+          <img src="img2.jpg" alt="member-2" />
+          <img src="img3.jpg" alt="member-3" />
+          <img src="img4.jpg" alt="member-4" />
+        </div>
+      </div>
+      <div class="task-box blue">
+        <div class="description-task">
+          <div class="time">10:00 - 11:00 AM</div>
+          <div class="task-name">Design Meeting</div>
+        </div>
+        <div class="more-button"></div>
+        <div class="members">
+          <img src="img5.jpg" alt="member" />
+          <img src="img6.jpg" alt="member-2" />
+          <img src="img7.jpg" alt="member-3" />
+        </div>
+      </div>
+      <div class="task-box red">
+        <div class="description-task">
+          <div class="time">01:00 - 02:00 PM</div>
+          <div class="task-name">Team Meeting</div>
+        </div>
+        <div class="more-button"></div>
+        <div class="members">
+          <img src="img1.jpg" alt="member" />
+          <img src="img2.jpg" alt="member-2" />
+          <img src="img3.jpg" alt="member-3" />
+          <img src="img4.jpg" alt="member-4" />
+        </div>
+      </div>
+      <div class="task-box green">
+        <div class="description-task">
+          <div class="time">03:00 - 04:00 PM</div>
+          <div class="task-name">Release Event</div>
+        </div>
+        <div class="more-button"></div>
+        <div class="members">
+          <img src="img5.jpg" alt="member" />
+          <img src="img6.jpg" alt="member-2" />
+          <img src="img7.jpg" alt="member-3" />
+          <img src="img8.jpg" alt="member-4" />
+          <img src="img9.jpg" alt="member-5" />
+        </div>
+      </div>
+      <div class="task-box blue">
+        <div class="description-task">
+          <div class="time">08:00 - 09:00 PM</div>
+          <div class="task-name">Release Event</div>
+        </div>
+        <div class="more-button"></div>
+        <div class="members">
+          <img src="img5.jpg" alt="member" />
+          <img src="img6.jpg" alt="member-2" />
+          <img src="img7.jpg" alt="member-3" />
+          <img src="img8.jpg" alt="member-4" />
+          <img src="img9.jpg" alt="member-5" />
+        </div>
+      </div>
+      <div class="task-box yellow">
+        <div class="description-task">
+          <div class="time">11:00 - 12:00 PM</div>
+          <div class="task-name">Practise</div>
+        </div>
+        <div class="more-button"></div>
+        <div class="members">
+          <img src="img1.jpg" alt="member" />
+          <img src="img2.jpg" alt="member-2" />
+          <img src="img3.jpg" alt="member-3" />
+          <img src="img4.jpg" alt="member-4" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- right bar ends -->
+      </div>
+      
+  </body>
+</html>
