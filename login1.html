@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style1.css">
     <title>Login Page</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+     <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -32,24 +33,7 @@
         </div>
     </div>
 
-    <script>
-        function login() {
-            // Your login logic here
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
     
-            // Dummy authentication, replace with your logic
-            if (username === "abhi" && password === "abhi") {
-               
-                window.location.href = "step1.html"; // Redirect to the main page
-                // Prevent form submission
-                return false;
-            } else {
-                alert("Login failed. Please check your username and password.");
-                return false; // Prevent form submission
-            }
-        }
-    </script>
     
 </body>
 </html>
