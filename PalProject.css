@@ -42,12 +42,18 @@ ul {
 
 }
 
+
 .textcontainer h1 {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 5%;
+ 
 
+}
+#image{
+    width:40px;
+    height: 40px;
 }
 
 .textcontainer p {
@@ -71,6 +77,7 @@ ul {
 .videocontainer video {
     width: 100%;
     height: auto;
+position: relative;
 }
 .photo-slide {
     position: fixed;
@@ -81,3 +88,4 @@ ul {
     width: 600px;
     height: 600px;
 }
+
